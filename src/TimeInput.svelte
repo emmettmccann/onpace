@@ -1,17 +1,60 @@
 <script>
   import TimeDisp from "./TimeDisp.svelte";
+  import { createEventDispatcher } from "svelte";
 
-  export let enteredTime;
+  const dispatch = createEventDispatcher();
 
-  $: seconds = Math.floor((enteredTime % 10000) / 100);
-  $: fracs = Math.floor(enteredTime % 100);
-  $: minutes = Math.floor((enteredTime % 1000000) / 10000);
-  $: ms = minutes * 6000 + seconds * 100 + fracs;
-  $: displayTime = minutes + ":" + seconds + "." + fracs;
+  let enteredTime = "00:00.00";
+
+  let minutes, seconds, fracs, ms;
+
+  function validate(event) {
+    let digitList = event.target.value.match(/[0-9]/g);
+    let digits = digitList.reduce((tot, el) => {
+      return tot + el;
+    }, "000000");
+    digits = digits.slice(-6);
+    console.log(digitList);
+    minutes = digits.slice(-6, -4);
+    seconds = digits.slice(-4, -2);
+    fracs = digits.slice(-2);
+    ms = 0;
+    let disp = "";
+    if (digits.length > 4) {
+      disp += minutes + ":";
+      ms += parseInt(minutes) * 6000;
+    }
+    if (digits.length > 2) {
+      disp += seconds + ".";
+      ms += parseInt(seconds) * 100;
+    }
+    disp += fracs;
+    ms += parseInt(fracs);
+    dispatch("valueInMs", {
+      time: ms * 10
+    });
+    enteredTime = disp;
+  }
 </script>
 
 <style>
-  /* your styles go here */
+  /* Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+
+  /* Firefox */
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
 </style>
 
-<div>{displayTime}</div>
+<div style="position: relative;">
+  <input
+    id="input-time"
+    type="phone"
+    bind:value={enteredTime}
+    name="time"
+    on:input={validate} />
+</div>

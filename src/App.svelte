@@ -2,13 +2,17 @@
   import Timer from "./Timer.svelte";
   import Race from "./Race.svelte";
   import TimeDisp from "./TimeDisp.svelte";
-  import TimeInput from "./TimeInput.svelte";
+  import Time2 from "./TimeInput.svelte";
   let lapCount;
   let goalTime;
   let lapTimes;
 
   function updateLapTimes(event) {
     lapTimes = event.detail.lapTimes;
+  }
+
+  function updateGoalTime(event) {
+    goalTime = event.detail.time;
   }
 </script>
 
@@ -39,10 +43,11 @@
     <input type="number" id="distance" bind:value={lapCount} />
     <input type="number" id="goalTime" bind:value={goalTime} />
     <div>
-      <TimeInput enteredTime={goalTime} />
+      <Time2 on:valueInMs={updateGoalTime} />
     </div>
   </form>
 
   <Timer on:lapTimes={updateLapTimes} />
   <Race {lapTimes} {lapCount} {goalTime} />
+
 </main>

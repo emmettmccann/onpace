@@ -1,8 +1,8 @@
 <script>
   export let time = 0;
-  $: seconds = checkTime(Math.floor(Math.abs(time) / 1000));
+  $: seconds = checkTime(Math.floor(Math.abs(time) / 1000) % 60);
   $: fracs = checkTime(Math.floor((Math.abs(time) % 1000) / 10));
-  $: minutes = checkTime(Math.floor(seconds / 60));
+  $: minutes = checkTime(Math.floor(Math.abs(time) / 60000));
 
   $: displayTime =
     (time < 0 ? "-" : "") + minutes + ":" + seconds + "." + fracs;
@@ -19,4 +19,4 @@
   /* your styles go here */
 </style>
 
-<div>{displayTime}</div>
+{displayTime}
