@@ -52,7 +52,7 @@
 
 <input
   id="input-time"
-  type="phone"
+  type="text"
   bind:value={enteredTime}
   name="time"
   on:input={validate} />
