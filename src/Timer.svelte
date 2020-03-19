@@ -64,8 +64,23 @@
     font-family: "Courier New", Courier, monospace;
     font-size: 5rem;
   }
+
+  #split {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 2rem;
+  }
+  button {
+    width: 100%;
+    height: 5rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    font-size: 3rem;
+  }
 </style>
 
+<div id="split">
+  <TimeDisp time={splitTimes[splitTimes.length - 1]} />
+</div>
 <div id="time">
   <TimeDisp time={currentTime} />
 </div>
