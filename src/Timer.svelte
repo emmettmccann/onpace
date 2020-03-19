@@ -5,12 +5,16 @@
 
   const dispatch = createEventDispatcher();
 
+  export let lapCount = 10;
+
   let currentTime = 0.0;
   let startTime = 0.0;
   let running = false;
   let lapTimes = [];
   let splitTimes = [];
   let timer;
+
+  $: distanceCovered = lapTimes.length * 50;
 
   function startTimer(event) {
     // only set the startTime if the clock is currently reset.
@@ -26,6 +30,7 @@
   }
 
   function stopTimer(event) {
+    addLapTime(event);
     clearInterval(timer);
     running = false;
   }
@@ -64,10 +69,13 @@
 <div id="time">
   <TimeDisp time={currentTime} />
 </div>
-{#if !running}
+
+{#if !running & (lapTimes.length == 0)}
   <button on:click={startTimer}>Start</button>
+{:else if running & (lapTimes.length < lapCount - 1)}
+  <button on:click={addLapTime}>{distanceCovered + 50} split</button>
+{:else if running & (lapTimes.length == lapCount - 1)}
+  <button on:click={stopTimer}>Finish</button>
+{:else if lapTimes.length == lapCount}
   <button on:click={resetTimer}>Reset</button>
-{:else}
-  <button on:click={stopTimer}>Stop</button>
-  <button on:click={addLapTime}>Lap</button>
 {/if}
