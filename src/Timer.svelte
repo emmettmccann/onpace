@@ -61,47 +61,39 @@
 </script>
 
 <style>
-  #time {
-    font-family: "Courier New", Courier, monospace;
-    font-size: 4rem;
-  }
-
-  #split {
-    font-family: "Courier New", Courier, monospace;
-    font-size: 2rem;
-  }
-  button {
-    width: 100%;
-    height: 5rem;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-    font-size: 2rem;
-  }
-
   #timer {
-    position: fixed;
-    width: 90%;
-    left: 5%;
-    bottom: 0%;
     touch-action: manipulation;
+    @apply fixed flex flex-col items-center w-full left-0 bottom-0 py-5;
+  }
+
+  button {
+    @apply font-bold text-3xl font-sans w-11/12 h-20 py-2 px-4 rounded text-white;
   }
 </style>
 
 <div id="timer">
-  <div id="split">
+  <div id="split" class="font-mono text-3xl font-medium">
     <TimeDisp time={split} />
   </div>
-  <div id="time">
+  <div id="time" class="font-mono text-6xl font-light">
     <TimeDisp time={currentTime} />
   </div>
 
   {#if !running & (lapTimes.length == 0)}
-    <button on:click={startTimer}>Start</button>
+    <button class="bg-green-500 active:bg-green-400" on:click={startTimer}>
+      Start
+    </button>
   {:else if running & (lapTimes.length < lapCount - 1)}
-    <button on:click={addLapTime}>{distanceCovered + 50} split</button>
+    <button class="bg-blue-500 active:bg-blue-400" on:click={addLapTime}>
+      {distanceCovered + 50} split
+    </button>
   {:else if running & (lapTimes.length == lapCount - 1)}
-    <button on:click={stopTimer}>Finish</button>
+    <button class="bg-orange-500 active:bg-orange-400" on:click={stopTimer}>
+      Finish
+    </button>
   {:else if lapTimes.length == lapCount}
-    <button on:click={resetTimer}>Reset</button>
+    <button class="bg-red-500 active:bg-red-400" on:click={resetTimer}>
+      Reset
+    </button>
   {/if}
 </div>

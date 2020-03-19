@@ -25,7 +25,13 @@
   }
 </script>
 
-<style>
+<style global>
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+</style>
+
+<!-- <style>
   main {
     text-align: center;
     padding: 1em;
@@ -45,8 +51,7 @@
       max-width: 33%;
     }
   }
-</style>
-
+</style> -->
 <main>
   <form action="newRace">
     <select bind:value={lapCount} on:change={console.log(lapCount)}>
