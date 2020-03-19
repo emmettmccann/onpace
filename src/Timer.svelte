@@ -62,7 +62,7 @@
 <style>
   #time {
     font-family: "Courier New", Courier, monospace;
-    font-size: 5rem;
+    font-size: 4rem;
   }
 
   #split {
