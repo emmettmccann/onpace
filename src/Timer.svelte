@@ -96,4 +96,13 @@
       Reset
     </button>
   {/if}
+  {#if running}
+    <button class="bg-orange-500 active:bg-orange-400" on:click={stopTimer}>
+      Stop
+    </button>
+  {:else}
+    <button class="bg-red-500 active:bg-red-400" on:click={resetTimer}>
+      Reset
+    </button>
+  {/if}
 </div>
