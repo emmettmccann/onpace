@@ -14,6 +14,11 @@
   let splitTimes = [];
   let timer;
 
+  $: split =
+    lapTimes.length > 0
+      ? currentTime - lapTimes[lapTimes.length - 1]
+      : currentTime;
+
   $: distanceCovered = lapTimes.length * 50;
 
   function startTimer(event) {
@@ -47,10 +52,6 @@
   }
 
   function addLapTime(event) {
-    let split =
-      lapTimes.length > 0
-        ? currentTime - lapTimes[lapTimes.length - 1]
-        : currentTime;
     lapTimes = lapTimes.concat(currentTime);
     splitTimes = splitTimes.concat(split);
     dispatch("lapTimes", {
@@ -88,7 +89,7 @@
 
 <div id="timer">
   <div id="split">
-    <TimeDisp time={splitTimes[splitTimes.length - 1]} />
+    <TimeDisp time={split} />
   </div>
   <div id="time">
     <TimeDisp time={currentTime} />
