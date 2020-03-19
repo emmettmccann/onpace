@@ -29,7 +29,7 @@
   main {
     text-align: center;
     padding: 1em;
-    max-width: 240px;
+    max-width: none;
     margin: 0 auto;
   }
 
@@ -42,7 +42,7 @@
 
   @media (min-width: 640px) {
     main {
-      max-width: none;
+      max-width: 33%;
     }
   }
 </style>
@@ -57,7 +57,7 @@
     <Time2 on:valueInMs={updateGoalTime} />
   </form>
 
-  <Timer on:lapTimes={updateLapTimes} />
   <Race {lapTimes} {lapCount} {goalTime} />
+  <Timer on:lapTimes={updateLapTimes} />
 
 </main>

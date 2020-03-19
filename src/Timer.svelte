@@ -74,23 +74,32 @@
     height: 5rem;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
       Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-    font-size: 3rem;
+    font-size: 2rem;
+  }
+
+  #timer {
+    position: fixed;
+    width: 90%;
+    left: 5%;
+    bottom: 0%;
   }
 </style>
 
-<div id="split">
-  <TimeDisp time={splitTimes[splitTimes.length - 1]} />
-</div>
-<div id="time">
-  <TimeDisp time={currentTime} />
-</div>
+<div id="timer">
+  <div id="split">
+    <TimeDisp time={splitTimes[splitTimes.length - 1]} />
+  </div>
+  <div id="time">
+    <TimeDisp time={currentTime} />
+  </div>
 
-{#if !running & (lapTimes.length == 0)}
-  <button on:click={startTimer}>Start</button>
-{:else if running & (lapTimes.length < lapCount - 1)}
-  <button on:click={addLapTime}>{distanceCovered + 50} split</button>
-{:else if running & (lapTimes.length == lapCount - 1)}
-  <button on:click={stopTimer}>Finish</button>
-{:else if lapTimes.length == lapCount}
-  <button on:click={resetTimer}>Reset</button>
-{/if}
+  {#if !running & (lapTimes.length == 0)}
+    <button on:click={startTimer}>Start</button>
+  {:else if running & (lapTimes.length < lapCount - 1)}
+    <button on:click={addLapTime}>{distanceCovered + 50} split</button>
+  {:else if running & (lapTimes.length == lapCount - 1)}
+    <button on:click={stopTimer}>Finish</button>
+  {:else if lapTimes.length == lapCount}
+    <button on:click={resetTimer}>Reset</button>
+  {/if}
+</div>
