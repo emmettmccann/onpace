@@ -82,6 +82,7 @@
     width: 90%;
     left: 5%;
     bottom: 0%;
+    touch-action: manipulation;
   }
 </style>
 
