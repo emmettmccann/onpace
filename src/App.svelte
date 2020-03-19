@@ -7,6 +7,15 @@
   let goalTime;
   let lapTimes;
 
+  let distanceList = [
+    { id: 1, distance: "500", laps: 10 },
+    { id: 2, distance: "1000", laps: 20 },
+    { id: 3, distance: "1650", laps: 33 },
+    { id: 4, distance: "400", laps: 8 },
+    { id: 5, distance: "800", laps: 16 },
+    { id: 6, distance: "1500", laps: 30 }
+  ];
+
   function updateLapTimes(event) {
     lapTimes = event.detail.lapTimes;
   }
@@ -40,11 +49,12 @@
 
 <main>
   <form action="newRace">
-    <input type="number" id="distance" bind:value={lapCount} />
-    <input type="number" id="goalTime" bind:value={goalTime} />
-    <div>
-      <Time2 on:valueInMs={updateGoalTime} />
-    </div>
+    <select bind:value={lapCount} on:change={console.log(lapCount)}>
+      {#each distanceList as distance}
+        <option value={distance.laps}>{distance.distance}</option>
+      {/each}
+    </select>
+    <Time2 on:valueInMs={updateGoalTime} />
   </form>
 
   <Timer on:lapTimes={updateLapTimes} />

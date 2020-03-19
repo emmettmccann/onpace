@@ -50,11 +50,9 @@
   }
 </style>
 
-<div style="position: relative;">
-  <input
-    id="input-time"
-    type="phone"
-    bind:value={enteredTime}
-    name="time"
-    on:input={validate} />
-</div>
+<input
+  id="input-time"
+  type="phone"
+  bind:value={enteredTime}
+  name="time"
+  on:input={validate} />

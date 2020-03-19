@@ -5,7 +5,7 @@
   $: minutes = checkTime(Math.floor(Math.abs(time) / 60000));
 
   $: displayTime =
-    (time < 0 ? "-" : "") + minutes + ":" + seconds + "." + fracs;
+    (time < 0 ? "-" : " ") + minutes + ":" + seconds + "." + fracs;
 
   function checkTime(i) {
     if (i < 10) {

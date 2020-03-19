@@ -10,7 +10,7 @@
   }, 0);
   $: totalTime = ellapsedTime + remainingLaps * currentPace;
   $: projDifference = totalTime - goalTime;
-  $: mustAverage = goalTime - ellapsedTime;
+  $: mustAverage = (goalTime - ellapsedTime) / remainingLaps;
   $: distanceCovered = lapTimes.length * 50;
 </script>
 
@@ -38,17 +38,27 @@
 
 <main>
   <div>
-    Total Estimated Time:
-    <TimeDisp time={totalTime} />
-    Goal Time:
-    <TimeDisp time={goalTime} />
-    Projected Difference:
-    <TimeDisp time={projDifference} />
-    Must Average:
-    <TimeDisp time={mustAverage} />
-    Most recent split:
-    <TimeDisp time={currentPace} />
-    Distance Covered: {distanceCovered}
+    <div>
+      Total Estimated Time:
+      <TimeDisp time={totalTime} />
+    </div>
+    <div>
+      Goal Time:
+      <TimeDisp time={goalTime} />
+    </div>
+    <div>
+      Projected Difference:
+      <TimeDisp time={projDifference} />
+    </div>
+    <div>
+      Must Average:
+      <TimeDisp time={mustAverage} />
+    </div>
+    <div>
+      Most recent split:
+      <TimeDisp time={currentPace} />
+    </div>
+    <div>Distance Covered: {distanceCovered}</div>
   </div>
   <p />
   <div>
