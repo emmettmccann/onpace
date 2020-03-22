@@ -58,7 +58,9 @@
   }
 </style> -->
 <main>
-  <form action="newRace">
+  <form
+    on:submit|preventDefault
+    class="flex flex-row justify-around w-full text-xl">
     <select bind:value={lapCount} on:change={console.log(lapCount)}>
       {#each distanceList as distance}
         <option value={distance.laps}>{distance.distance}</option>

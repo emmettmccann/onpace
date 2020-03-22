@@ -86,7 +86,7 @@
   <div id="split" class="font-mono text-3xl font-medium">
     {#if splitOn}
       <!-- show paused split time -->
-      <TimeDisp split="true" time={splitDelta} />
+      <TimeDisp split time={splitDelta} />
     {:else}
       <!-- show running split time -->
       <TimeDisp time={split} />

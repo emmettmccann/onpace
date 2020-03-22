@@ -1,12 +1,17 @@
 <script>
   export let time = 0;
   export let split = false;
+  export let fullTime = false;
   $: seconds = checkTime(Math.floor(Math.abs(time) / 1000) % 60);
   $: fracs = checkTime(Math.floor((Math.abs(time) % 1000) / 10));
   $: minutes = checkTime(Math.floor(Math.abs(time) / 60000));
 
-  $: displayTime =
+  $: dispMinSec =
     (time < 0 ? "-" : " ") + minutes + ":" + seconds + "." + fracs;
+
+  $: dispSec = (time < 0 ? "-" : " ") + seconds + "." + fracs;
+
+  $: displayTime = split && !fullTime ? dispSec : dispMinSec;
 
   function checkTime(i) {
     if (i < 10) {

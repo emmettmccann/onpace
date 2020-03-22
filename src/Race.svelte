@@ -51,7 +51,7 @@
 
     <div>
       Projected Difference:
-      <TimeDisp split="true" time={projDifference} />
+      <TimeDisp split fullTime time={projDifference} />
     </div>
 
     {#if lapTimes.length > 0}

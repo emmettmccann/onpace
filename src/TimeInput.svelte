@@ -50,14 +50,9 @@
   }
 </style>
 
-<form
-  on:submit|preventDefault={() => {
-    console.log('submit');
-  }}>
-  <input
-    id="input-time"
-    type="text"
-    bind:value={enteredTime}
-    name="time"
-    on:input={validate} />
-</form>
+<input
+  id="input-time"
+  type="text"
+  bind:value={enteredTime}
+  name="time"
+  on:input={validate} />
