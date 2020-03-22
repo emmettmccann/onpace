@@ -6,14 +6,15 @@
   let lapCount;
   let goalTime;
   let lapTimes;
+  let mustHold;
 
   let distanceList = [
-    { id: 1, distance: "500", laps: 10 },
-    { id: 2, distance: "1000", laps: 20 },
-    { id: 3, distance: "1650", laps: 33 },
-    { id: 4, distance: "400", laps: 8 },
-    { id: 5, distance: "800", laps: 16 },
-    { id: 6, distance: "1500", laps: 30 }
+    { id: 1, distance: "500yd", laps: 10 },
+    { id: 2, distance: "1000yd", laps: 20 },
+    { id: 3, distance: "1650yd", laps: 33 },
+    { id: 4, distance: "400m", laps: 8 },
+    { id: 5, distance: "800m", laps: 16 },
+    { id: 6, distance: "1500m", laps: 30 }
   ];
 
   function updateLapTimes(event) {
@@ -22,6 +23,10 @@
 
   function updateGoalTime(event) {
     goalTime = event.detail.time;
+  }
+
+  function updateMustHold(event) {
+    mustHold = event.detail.time;
   }
 </script>
 
@@ -62,7 +67,7 @@
     <Time2 on:valueInMs={updateGoalTime} />
   </form>
 
-  <Race {lapTimes} {lapCount} {goalTime} />
-  <Timer on:lapTimes={updateLapTimes} />
+  <Race {lapTimes} {lapCount} {goalTime} on:mustHold={updateMustHold} />
+  <Timer on:lapTimes={updateLapTimes} {mustHold} {lapCount} />
 
 </main>

@@ -1,5 +1,8 @@
 <script>
   import TimeDisp from "./TimeDisp.svelte";
+  import { createEventDispatcher } from "svelte";
+
+  const dispatch = createEventDispatcher();
   export let lapTimes = [];
   export let lapCount;
   export let goalTime;
@@ -10,8 +13,16 @@
   }, 0);
   $: totalTime = ellapsedTime + remainingLaps * currentPace;
   $: projDifference = totalTime - goalTime;
-  $: mustAverage = (goalTime - ellapsedTime) / remainingLaps;
+  $: mustAverage = updateMustAverage(goalTime, ellapsedTime, remainingLaps);
   $: distanceCovered = lapTimes.length * 50;
+
+  function updateMustAverage(gt, et, rl) {
+    let val = (gt - et) / rl;
+    dispatch("mustHold", {
+      time: val
+    });
+    return val;
+  }
 </script>
 
 <style>

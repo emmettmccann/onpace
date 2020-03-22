@@ -6,6 +6,7 @@
   const dispatch = createEventDispatcher();
 
   export let lapCount = 10;
+  export let mustHold = 0.0;
 
   let currentTime = 0.0;
   let startTime = 0.0;
@@ -13,6 +14,11 @@
   let lapTimes = [];
   let splitTimes = [];
   let timer;
+  let splitOn = false;
+  $: mostRecentSplit =
+    splitTimes.length > 0 ? splitTimes[splitTimes.length - 1] : 0.0;
+
+  $: splitDelta = mustHold - mostRecentSplit;
 
   $: split =
     lapTimes.length > 0
@@ -57,6 +63,10 @@
     dispatch("lapTimes", {
       lapTimes: splitTimes
     });
+    splitOn = true;
+    setTimeout(() => {
+      splitOn = false;
+    }, 1000);
   }
 </script>
 
@@ -73,10 +83,22 @@
 
 <div id="timer">
   <div id="split" class="font-mono text-3xl font-medium">
-    <TimeDisp time={split} />
+    {#if splitOn}
+      <!-- show paused split time -->
+      <TimeDisp time={splitDelta} />
+    {:else}
+      <!-- show running split time -->
+      <TimeDisp time={split} />
+    {/if}
   </div>
   <div id="time" class="font-mono text-6xl font-light">
-    <TimeDisp time={currentTime} />
+    {#if splitOn}
+      <!-- splitTime -->
+      <TimeDisp time={mostRecentSplit} />
+    {:else}
+      <!-- show running clock -->
+      <TimeDisp time={currentTime} />
+    {/if}
   </div>
 
   {#if !running & (lapTimes.length == 0)}
