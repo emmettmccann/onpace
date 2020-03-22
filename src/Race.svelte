@@ -36,22 +36,19 @@
 
 <div>
   <div>
-    <div>
-      Goal Time:
-      <TimeDisp time={goalTime} />
-    </div>
-    <div>
-      Must Average:
-      <TimeDisp time={mustAverage} />
-    </div>
-    <div>
-      Total Estimated Time:
-      <TimeDisp time={totalTime} />
-    </div>
-
-    <div>
-      Projected Difference:
-      <TimeDisp split fullTime time={projDifference} />
+    <div class="flex flex-col items-center text-2xl width-full">
+      <div>
+        Must Average:
+        <TimeDisp time={mustAverage} />
+      </div>
+      <div>
+        Total Estimated Time:
+        <TimeDisp time={totalTime} />
+      </div>
+      <div>
+        Projected Difference:
+        <TimeDisp split fullTime time={projDifference} />
+      </div>
     </div>
 
     {#if lapTimes.length > 0}
