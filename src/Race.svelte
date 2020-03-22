@@ -26,13 +26,6 @@
 </script>
 
 <style>
-  #onpace {
-    color: lime;
-  }
-  #tooslow {
-    color: red;
-  }
-
   #tooslow,
   #onpace {
     font-size: 3rem;
@@ -58,14 +51,14 @@
 
     <div>
       Projected Difference:
-      <TimeDisp time={projDifference} />
+      <TimeDisp split="true" time={projDifference} />
     </div>
 
     {#if lapTimes.length > 0}
       {#if projDifference < 0}
-        <div id="onpace">On Pace!</div>
+        <div id="onpace" class="text-green-500">On Pace!</div>
       {:else}
-        <div id="tooslow">Too Slow!</div>
+        <div id="tooslow" class="text-red-600">Too Slow!</div>
       {/if}
     {/if}
 

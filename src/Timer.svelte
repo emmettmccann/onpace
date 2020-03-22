@@ -18,7 +18,7 @@
   $: mostRecentSplit =
     splitTimes.length > 0 ? splitTimes[splitTimes.length - 1] : 0.0;
 
-  $: splitDelta = mustHold - mostRecentSplit;
+  $: splitDelta = mostRecentSplit - mustHold;
 
   $: split =
     lapTimes.length > 0
@@ -66,7 +66,7 @@
     splitOn = true;
     setTimeout(() => {
       splitOn = false;
-    }, 1000);
+    }, 2000);
   }
 </script>
 
@@ -85,7 +85,7 @@
   <div id="split" class="font-mono text-3xl font-medium">
     {#if splitOn}
       <!-- show paused split time -->
-      <TimeDisp time={splitDelta} />
+      <TimeDisp split="true" time={splitDelta} />
     {:else}
       <!-- show running split time -->
       <TimeDisp time={split} />

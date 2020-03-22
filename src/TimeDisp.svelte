@@ -1,5 +1,6 @@
 <script>
   export let time = 0;
+  export let split = false;
   $: seconds = checkTime(Math.floor(Math.abs(time) / 1000) % 60);
   $: fracs = checkTime(Math.floor((Math.abs(time) % 1000) / 10));
   $: minutes = checkTime(Math.floor(Math.abs(time) / 60000));
@@ -19,4 +20,13 @@
   /* your styles go here */
 </style>
 
-{displayTime}
+{#if !split}
+  <!-- Non-split, normal time -->
+  <span>{displayTime}</span>
+{:else if time > 0}
+  <!-- positive split = too slow = red -->
+  <span class="text-red-600">{displayTime}</span>
+{:else}
+  <!-- negative time = too fast = green -->
+  <span class="text-green-500">{displayTime}</span>
+{/if}
