@@ -2,7 +2,7 @@
   import Timer from "./Timer.svelte";
   import Race from "./Race.svelte";
   import TimeDisp from "./TimeDisp.svelte";
-  import Time2 from "./TimeInput.svelte";
+  import TimeInput from "./TimeInput.svelte";
   let lapCount;
   let goalTime;
   let lapTimes;
@@ -64,7 +64,7 @@
         <option value={distance.laps}>{distance.distance}</option>
       {/each}
     </select>
-    <Time2 on:valueInMs={updateGoalTime} />
+    <TimeInput on:valueInMs={updateGoalTime} />
   </form>
 
   <Race {lapTimes} {lapCount} {goalTime} on:mustHold={updateMustHold} />

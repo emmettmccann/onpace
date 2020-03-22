@@ -58,6 +58,7 @@
   }
 
   function addLapTime(event) {
+    if (splitOn) return;
     lapTimes = lapTimes.concat(currentTime);
     splitTimes = splitTimes.concat(split);
     dispatch("lapTimes", {
