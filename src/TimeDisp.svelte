@@ -11,7 +11,13 @@
 
   $: dispSec = (time < 0 ? "-" : " ") + seconds + "." + fracs;
 
-  $: displayTime = split && !fullTime ? dispSec : dispMinSec;
+  $: displayTime = isNaN(time)
+    ? split && !fullTime
+      ? "--.--"
+      : "--:--.--"
+    : split && !fullTime
+    ? dispSec
+    : dispMinSec;
 
   function checkTime(i) {
     if (i < 10) {
