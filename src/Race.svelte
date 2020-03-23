@@ -34,38 +34,35 @@
   }
 
   #main {
-    @apply p-8 flex flex-col items-center bg-blue-100 m-3;
+    @apply py-8 flex flex-col items-center bg-blue-100 m-3;
   }
 </style>
 
 <div id="main">
-  <div>
-    <div class="flex flex-row text-2xl text-right items-between width-full">
-      <div class="m-2">
-        <div>Must Average:</div>
-        <div>Total Estimated Time:</div>
-        <div>Projected Difference:</div>
-        <div>Most recent split:</div>
-      </div>
-      <div class="flex flex-col m-2">
-        <TimeDisp time={mustAverage} />
-        <TimeDisp time={totalTime} />
-        <TimeDisp split fullTime time={projDifference} />
-        <TimeDisp time={currentPace} />
-      </div>
+  <div class="flex flex-row justify-center w-full text-2xl text-right">
+    <div class="mx-2">
+      <div>Must Average:</div>
+      <div>Estimated Time:</div>
+      <div>Projected Delta:</div>
+      <div>Last split:</div>
     </div>
-
-    {#if lapTimes.length > 0}
-      {#if projDifference < 0}
-        <div id="onpace" class="text-green-500">On Pace!</div>
-      {:else}
-        <div id="tooslow" class="text-red-600">Too Slow!</div>
-      {/if}
-    {/if}
-
-    <!-- <div>Distance Covered: {distanceCovered}</div> -->
+    <div class="flex flex-col items-end flex-grow-0 mx-3">
+      <TimeDisp time={mustAverage} />
+      <TimeDisp time={totalTime} />
+      <TimeDisp split fullTime time={projDifference} />
+      <TimeDisp time={currentPace} />
+    </div>
   </div>
-  <p />
+
+  {#if lapTimes.length > 0}
+    {#if projDifference < 0}
+      <div id="onpace" class="text-green-500">On Pace!</div>
+    {:else}
+      <div id="tooslow" class="text-red-600">Too Slow!</div>
+    {/if}
+  {/if}
+
+  <!-- <div>Distance Covered: {distanceCovered}</div> -->
   <!-- <div>
     {#each lapTimes as time}
       <TimeDisp {time} />
