@@ -8,8 +8,6 @@
   #onpace {
     font-size: 3rem;
     font-weight: 400;
-    line-height: 3rem;
-    @apply my-10;
   }
 </style>
 
