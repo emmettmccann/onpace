@@ -32,22 +32,26 @@
     font-weight: 400;
     line-height: 6rem;
   }
+
+  #main {
+    @apply p-8 flex flex-col items-center bg-blue-100 m-3;
+  }
 </style>
 
-<div>
+<div id="main">
   <div>
-    <div class="flex flex-col items-center text-2xl width-full">
-      <div>
-        Must Average:
+    <div class="flex flex-row text-2xl text-right items-between width-full">
+      <div class="m-2">
+        <div>Must Average:</div>
+        <div>Total Estimated Time:</div>
+        <div>Projected Difference:</div>
+        <div>Most recent split:</div>
+      </div>
+      <div class="flex flex-col m-2">
         <TimeDisp time={mustAverage} />
-      </div>
-      <div>
-        Total Estimated Time:
         <TimeDisp time={totalTime} />
-      </div>
-      <div>
-        Projected Difference:
         <TimeDisp split fullTime time={projDifference} />
+        <TimeDisp time={currentPace} />
       </div>
     </div>
 
@@ -59,10 +63,6 @@
       {/if}
     {/if}
 
-    <div>
-      Most recent split:
-      <TimeDisp time={currentPace} />
-    </div>
     <!-- <div>Distance Covered: {distanceCovered}</div> -->
   </div>
   <p />

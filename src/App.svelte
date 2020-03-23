@@ -34,42 +34,31 @@
   @tailwind base;
   @tailwind components;
   @tailwind utilities;
+
+  #main-app {
+    @apply p-3 rounded-lg m-0 bg-white h-full;
+  }
+
+  #page {
+    @apply bg-green-300 p-3 h-screen;
+  }
 </style>
 
-<!-- <style>
-  main {
-    text-align: center;
-    padding: 1em;
-    max-width: none;
-    margin: 0 auto;
-  }
+<main id="page">
+  <div id="main-app">
+    <form
+      on:submit|preventDefault
+      class="flex flex-row justify-around w-full text-xl">
+      <select bind:value={lapCount} on:change={console.log(lapCount)}>
+        {#each distanceList as distance}
+          <option value={distance.laps}>{distance.distance}</option>
+        {/each}
+      </select>
+      <TimeInput on:valueInMs={updateGoalTime} />
+    </form>
 
-  h1 {
-    color: #ff3e00;
-    text-transform: uppercase;
-    font-size: 4em;
-    font-weight: 100;
-  }
+    <Race {lapTimes} {lapCount} {goalTime} on:mustHold={updateMustHold} />
+    <Timer on:lapTimes={updateLapTimes} {mustHold} {lapCount} />
 
-  @media (min-width: 640px) {
-    main {
-      max-width: 33%;
-    }
-  }
-</style> -->
-<main>
-  <form
-    on:submit|preventDefault
-    class="flex flex-row justify-around w-full text-xl">
-    <select bind:value={lapCount} on:change={console.log(lapCount)}>
-      {#each distanceList as distance}
-        <option value={distance.laps}>{distance.distance}</option>
-      {/each}
-    </select>
-    <TimeInput on:valueInMs={updateGoalTime} />
-  </form>
-
-  <Race {lapTimes} {lapCount} {goalTime} on:mustHold={updateMustHold} />
-  <Timer on:lapTimes={updateLapTimes} {mustHold} {lapCount} />
-
+  </div>
 </main>
