@@ -36,29 +36,23 @@
   @tailwind utilities;
 
   #main-app {
-    @apply p-3 rounded-lg m-0 bg-white h-full;
-  }
-
-  #page {
-    @apply bg-green-300 p-3 h-screen;
+    @apply p-3 pt-5 m-0 bg-white h-full;
   }
 </style>
 
-<main id="page">
-  <div id="main-app">
-    <form
-      on:submit|preventDefault
-      class="flex flex-row justify-around w-full text-xl">
-      <select bind:value={lapCount} on:change={console.log(lapCount)}>
-        {#each distanceList as distance}
-          <option value={distance.laps}>{distance.distance}</option>
-        {/each}
-      </select>
-      <TimeInput on:valueInMs={updateGoalTime} />
-    </form>
+<div id="main-app">
+  <form
+    on:submit|preventDefault
+    class="flex flex-row justify-around w-full text-xl">
+    <select bind:value={lapCount} on:change={console.log(lapCount)}>
+      {#each distanceList as distance}
+        <option value={distance.laps}>{distance.distance}</option>
+      {/each}
+    </select>
+    <TimeInput on:valueInMs={updateGoalTime} />
+  </form>
 
-    <Race {lapTimes} {lapCount} {goalTime} on:mustHold={updateMustHold} />
-    <Timer on:lapTimes={updateLapTimes} {mustHold} {lapCount} />
+  <Race {lapTimes} {lapCount} {goalTime} on:mustHold={updateMustHold} />
+  <Timer on:lapTimes={updateLapTimes} {mustHold} {lapCount} />
 
-  </div>
-</main>
+</div>
