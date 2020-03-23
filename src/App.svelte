@@ -3,10 +3,12 @@
   import Race from "./Race.svelte";
   import TimeDisp from "./TimeDisp.svelte";
   import TimeInput from "./TimeInput.svelte";
+  import PaceAlert from "./PaceAlert.svelte";
   let lapCount;
   let goalTime;
   let lapTimes;
   let mustHold;
+  let delta;
 
   let distanceList = [
     { id: 1, distance: "500yd", laps: 10 },
@@ -27,6 +29,7 @@
 
   function updateMustHold(event) {
     mustHold = event.detail.time;
+    delta = event.detail.delta;
   }
 </script>
 
@@ -43,7 +46,7 @@
 <div id="main-app">
   <form
     on:submit|preventDefault
-    class="flex flex-row justify-around w-full text-xl">
+    class="flex flex-row justify-between w-full text-xl">
     <select bind:value={lapCount} on:change={console.log(lapCount)}>
       {#each distanceList as distance}
         <option value={distance.laps}>{distance.distance}</option>
@@ -52,7 +55,15 @@
     <TimeInput on:valueInMs={updateGoalTime} />
   </form>
 
-  <Race {lapTimes} {lapCount} {goalTime} on:mustHold={updateMustHold} />
-  <Timer on:lapTimes={updateLapTimes} {mustHold} {lapCount} />
-
+  <div class="flex flex-col h-full">
+    <div>
+      <Race {lapTimes} {lapCount} {goalTime} on:mustHold={updateMustHold} />
+    </div>
+    <div class="flex-grow">
+      <PaceAlert {delta} {lapTimes} />
+    </div>
+    <div>
+      <Timer on:lapTimes={updateLapTimes} {mustHold} {lapCount} />
+    </div>
+  </div>
 </div>

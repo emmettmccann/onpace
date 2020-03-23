@@ -19,7 +19,8 @@
   function updateMustAverage(gt, et, rl) {
     let val = (gt - et) / rl;
     dispatch("mustHold", {
-      time: val
+      time: val,
+      delta: projDifference
     });
     return val;
   }
@@ -30,7 +31,8 @@
   #onpace {
     font-size: 3rem;
     font-weight: 400;
-    line-height: 6rem;
+    line-height: 3rem;
+    @apply my-10;
   }
 
   #main {
@@ -53,19 +55,12 @@
       <TimeDisp time={currentPace} />
     </div>
   </div>
-
-  {#if lapTimes.length > 0}
-    {#if projDifference < 0}
-      <div id="onpace" class="text-green-500">On Pace!</div>
-    {:else}
-      <div id="tooslow" class="text-red-600">Too Slow!</div>
-    {/if}
-  {/if}
-
-  <!-- <div>Distance Covered: {distanceCovered}</div> -->
-  <!-- <div>
-    {#each lapTimes as time}
-      <TimeDisp {time} />
-    {/each}
-  </div> -->
 </div>
+<!-- 
+{#if lapTimes.length > 0}
+  {#if projDifference < 0}
+    <div id="onpace" class="text-green-500">On Pace!</div>
+  {:else}
+    <div id="tooslow" class="text-red-600">Too Slow!</div>
+  {/if}
+{/if} -->
