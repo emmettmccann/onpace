@@ -69,6 +69,10 @@
       splitOn = false;
     }, 2000);
   }
+
+  function openSettings(event) {
+    dispatch("openSettings", {});
+  }
 </script>
 
 <style>
@@ -78,7 +82,24 @@
   }
 
   button {
-    @apply font-bold text-3xl font-sans w-11/12 h-20 py-2 px-4 rounded text-white;
+    @apply font-bold text-3xl font-sans w-11/12 h-20 py-2 px-4 my-2 rounded text-white;
+  }
+
+  .start {
+    @apply bg-green-500;
+  }
+  .split {
+    @apply bg-blue-500;
+  }
+  .finish {
+    @apply bg-orange-400 h-40;
+  }
+  .reset,
+  .stop {
+    @apply bg-red-500;
+  }
+  .settings {
+    @apply bg-purple-500;
   }
 </style>
 
@@ -103,29 +124,28 @@
   </div>
 
   {#if !running & (lapTimes.length == 0)}
-    <button class="bg-green-500 active:bg-green-400" on:click={startTimer}>
-      Start
-    </button>
+    <!-- startsettings -->
+    <button class="start" on:click={startTimer}>Start</button>
+    <button class="settings" on:click={openSettings}>Race Settings</button>
   {:else if running & (lapTimes.length < lapCount - 1)}
-    <button class="bg-blue-500 active:bg-blue-400" on:click={addLapTime}>
+    <button class="split" on:click={addLapTime}>
       {distanceCovered + 50} split
     </button>
+    <div id="two-button" class="flex flex-row w-11/12">
+      <button class="mr-2 stop" on:click={stopTimer}>Stop</button>
+      <button class="ml-2 settings" on:click={openSettings}>Settings</button>
+    </div>
   {:else if running & (lapTimes.length == lapCount - 1)}
-    <button class="bg-orange-500 active:bg-orange-400" on:click={stopTimer}>
-      Finish
-    </button>
-  {:else if lapTimes.length == lapCount}
-    <button class="bg-red-500 active:bg-red-400" on:click={resetTimer}>
-      Reset
-    </button>
-  {/if}
-  {#if running}
-    <button class="bg-orange-500 active:bg-orange-400" on:click={stopTimer}>
-      Stop
-    </button>
+    <button class="finish" on:click={stopTimer}>Finish</button>
   {:else}
-    <button class="bg-red-500 active:bg-red-400" on:click={resetTimer}>
-      Reset
-    </button>
+    <button class="reset" on:click={resetTimer}>Reset</button>
+    <button class="settings" on:click={openSettings}>Settings</button>
   {/if}
 </div>
+
+<!-- 
+  pre-race startsettings
+  during lapstopsettings
+  armed for finish finish
+  finished/stopped resetsettings
+ -->

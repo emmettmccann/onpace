@@ -4,7 +4,7 @@
   import TimeDisp from "./TimeDisp.svelte";
   import PaceAlert from "./PaceAlert.svelte";
   import SettingsModal from "./SettingsModal.svelte";
-  let lapCount;
+  let lapCount = 10;
   let goalTime = 0.0;
   let lapTimes;
   let mustHold;
@@ -35,6 +35,10 @@
     goalTimeFormatted = event.detail.time;
     console.log("gtf" + goalTimeFormatted);
   }
+
+  function openSettings(event) {
+    settings = true;
+  }
 </script>
 
 <style global>
@@ -55,16 +59,13 @@
       on:newSettings={updateSettings}
       on:closed={closeSettings} />
   {/if}
-
-  <button
-    on:click={() => {
-      settings = true;
-    }}>
-    settings
-  </button>
-
-  <TimeDisp returnTime on:formattedTime={updateFormattedGoal} time={goalTime} />
-  {lapCount}
+  <div class="text-3xl font-medium text-center">
+    <TimeDisp
+      returnTime
+      on:formattedTime={updateFormattedGoal}
+      time={goalTime} />
+    {lapCount * 50}
+  </div>
   <div class="flex flex-col h-full">
     <div>
       <Race {lapTimes} {lapCount} {goalTime} on:mustHold={updateMustHold} />
@@ -73,7 +74,11 @@
       <PaceAlert {delta} {lapTimes} />
     </div>
     <div>
-      <Timer on:lapTimes={updateLapTimes} {mustHold} {lapCount} />
+      <Timer
+        on:lapTimes={updateLapTimes}
+        on:openSettings={openSettings}
+        {mustHold}
+        {lapCount} />
     </div>
   </div>
 

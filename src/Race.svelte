@@ -44,15 +44,15 @@
   <div class="flex flex-row justify-center w-full text-2xl text-right">
     <div class="mx-2">
       <div>Must Average:</div>
-      <div>Estimated Time:</div>
-      <div>Projected Delta:</div>
       <div>Last split:</div>
+      <div>Estimated Time:</div>
+      <!-- <div>Projected Delta:</div> -->
     </div>
     <div class="flex flex-col items-end flex-grow-0 mx-3">
       <TimeDisp time={mustAverage} />
-      <TimeDisp time={totalTime} />
-      <TimeDisp split fullTime time={projDifference} />
       <TimeDisp time={currentPace} />
+      <TimeDisp time={totalTime} />
+      <!-- <TimeDisp split fullTime time={projDifference} /> -->
     </div>
   </div>
 </div>
