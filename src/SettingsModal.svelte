@@ -16,11 +16,8 @@
     { id: 6, distance: "1500m", laps: 30 }
   ];
 
-  function updateGoalTime(event) {
-    goalTime = event.detail.time;
-  }
-
   let enteredTime = goalTimeFormatted;
+  $: goalTime = parseTime(goalTimeFormatted);
 
   let minutes, seconds, fracs, ms;
 
@@ -48,6 +45,26 @@
     ms += parseInt(fracs);
     goalTime = ms * 10;
     enteredTime = disp;
+  }
+
+  function parseTime(formatted) {
+    let digitList = formatted.match(/[0-9]/g);
+    let digits = digitList.reduce((tot, el) => {
+      return tot + el;
+    }, "000000");
+    digits = digits.slice(-6);
+    minutes = digits.slice(-6, -4);
+    seconds = digits.slice(-4, -2);
+    fracs = digits.slice(-2);
+    ms = 0;
+    if (digits.length > 4) {
+      ms += parseInt(minutes) * 6000;
+    }
+    if (digits.length > 2) {
+      ms += parseInt(seconds) * 100;
+    }
+    ms += parseInt(fracs);
+    return ms * 10;
   }
 
   function updateRaceSettings(event) {

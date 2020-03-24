@@ -18,6 +18,8 @@
     {:else}
       <div id="tooslow" class="text-red-600">Too Slow!</div>
     {/if}
+  {:else}
+    <div id="onpace" class="text-green-500">Ready to Start!</div>
   {/if}
 
 </div>
