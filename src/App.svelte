@@ -2,34 +2,38 @@
   import Timer from "./Timer.svelte";
   import Race from "./Race.svelte";
   import TimeDisp from "./TimeDisp.svelte";
-  import TimeInput from "./TimeInput.svelte";
   import PaceAlert from "./PaceAlert.svelte";
+  import SettingsModal from "./SettingsModal.svelte";
   let lapCount;
-  let goalTime;
+  let goalTime = 0.0;
   let lapTimes;
   let mustHold;
   let delta;
-
-  let distanceList = [
-    { id: 1, distance: "500yd", laps: 10 },
-    { id: 2, distance: "1000yd", laps: 20 },
-    { id: 3, distance: "1650yd", laps: 33 },
-    { id: 4, distance: "400m", laps: 8 },
-    { id: 5, distance: "800m", laps: 16 },
-    { id: 6, distance: "1500m", laps: 30 }
-  ];
+  let goalTimeFormatted = "00:00.00";
+  let settings = true;
 
   function updateLapTimes(event) {
     lapTimes = event.detail.lapTimes;
   }
 
-  function updateGoalTime(event) {
-    goalTime = event.detail.time;
-  }
-
   function updateMustHold(event) {
     mustHold = event.detail.time;
     delta = event.detail.delta;
+  }
+
+  function updateSettings(event) {
+    goalTime = event.detail.goalTime;
+    lapCount = event.detail.lapCount;
+    settings = false;
+  }
+
+  function closeSettings(event) {
+    settings = false;
+  }
+
+  function updateFormattedGoal(event) {
+    goalTimeFormatted = event.detail.time;
+    console.log("gtf" + goalTimeFormatted);
   }
 </script>
 
@@ -39,22 +43,28 @@
   @tailwind utilities;
 
   #main-app {
-    @apply p-3 pt-5 m-0 bg-white h-full;
+    @apply p-3 m-0 bg-white h-full;
   }
 </style>
 
 <div id="main-app">
-  <form
-    on:submit|preventDefault
-    class="flex flex-row justify-between w-full text-xl">
-    <select bind:value={lapCount} on:change={console.log(lapCount)}>
-      {#each distanceList as distance}
-        <option value={distance.laps}>{distance.distance}</option>
-      {/each}
-    </select>
-    <TimeInput on:valueInMs={updateGoalTime} />
-  </form>
+  {#if settings}
+    <SettingsModal
+      {goalTimeFormatted}
+      {lapCount}
+      on:newSettings={updateSettings}
+      on:closed={closeSettings} />
+  {/if}
 
+  <button
+    on:click={() => {
+      settings = true;
+    }}>
+    settings
+  </button>
+
+  <TimeDisp returnTime on:formattedTime={updateFormattedGoal} time={goalTime} />
+  {lapCount}
   <div class="flex flex-col h-full">
     <div>
       <Race {lapTimes} {lapCount} {goalTime} on:mustHold={updateMustHold} />
@@ -66,4 +76,5 @@
       <Timer on:lapTimes={updateLapTimes} {mustHold} {lapCount} />
     </div>
   </div>
+
 </div>

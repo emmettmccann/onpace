@@ -74,7 +74,7 @@
 <style>
   #timer {
     touch-action: manipulation;
-    @apply flex flex-col items-center w-full my-5 pb-5;
+    @apply flex flex-col items-center w-full mt-5 pb-10;
   }
 
   button {

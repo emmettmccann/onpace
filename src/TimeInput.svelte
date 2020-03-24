@@ -4,7 +4,7 @@
 
   const dispatch = createEventDispatcher();
 
-  let enteredTime = "00:00.00";
+  export let enteredTime;
 
   let minutes, seconds, fracs, ms;
 

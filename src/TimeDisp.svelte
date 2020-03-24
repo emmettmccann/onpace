@@ -1,7 +1,11 @@
 <script>
+  import { createEventDispatcher } from "svelte";
+
+  const dispatch = createEventDispatcher();
   export let time = 0;
   export let split = false;
   export let fullTime = false;
+  export let returnTime = false;
   $: seconds = checkTime(Math.floor(Math.abs(time) / 1000) % 60);
   $: fracs = checkTime(Math.floor((Math.abs(time) % 1000) / 10));
   $: minutes = checkTime(Math.floor(Math.abs(time) / 60000));
@@ -18,6 +22,15 @@
     : split && !fullTime
     ? dispSec
     : dispMinSec;
+
+  $: emitTime = returnTime ? sendTime(displayTime) : "none";
+
+  function sendTime(t) {
+    console.log(t);
+    dispatch("formattedTime", {
+      time: t
+    });
+  }
 
   function checkTime(i) {
     if (i < 10) {
