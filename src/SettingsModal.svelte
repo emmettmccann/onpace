@@ -4,8 +4,8 @@
 
   const dispatch = createEventDispatcher();
 
-  let goalTime;
-  export let goalTimeFormatted;
+  let goalTime = 300000;
+  export let goalTimeFormatted = "05:00.00";
   export let lapCount;
   let distanceList = [
     { id: 1, distance: "500yd", laps: 10 },
@@ -85,9 +85,13 @@
 </style>
 
 <div
-  class="fixed top-0 left-0 z-50 flex w-screen h-screen overflow-auto bg-smoke">
+  class="fixed top-0 left-0 z-50 flex w-screen h-screen overflow-auto bg-smoke"
+  on:click={updateRaceSettings}>
   <div
-    class="relative flex flex-col w-full max-w-md p-8 m-auto bg-white rounded-md">
+    class="relative flex flex-col w-11/12 max-w-md p-8 m-auto bg-white rounded-md"
+    on:click|stopPropagation={() => {
+      return null;
+    }}>
     <form
       on:submit|preventDefault={updateRaceSettings}
       class="flex flex-col items-center justify-between w-full text-xl">
@@ -126,18 +130,4 @@
       </div>
     </form>
   </div>
-  <span class="absolute top-0 right-0 p-4" on:click={closeSettings}>
-    <svg
-      class="w-12 h-12 text-red-500 fill-current"
-      role="button"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 20 20">
-      <title>Close</title>
-      <path
-        d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0
-        1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10
-        8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2
-        1.2 0 0 1 0 1.698z" />
-    </svg>
-  </span>
 </div>

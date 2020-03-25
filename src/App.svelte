@@ -5,12 +5,12 @@
   import PaceAlert from "./PaceAlert.svelte";
   import SettingsModal from "./SettingsModal.svelte";
   let lapCount = 10;
-  let goalTime = 0.0;
+  let goalTime = 300000;
   let lapTimes;
   let mustHold;
   let delta;
   let goalTimeFormatted = "00:00.00";
-  let settings = true;
+  let settings = false;
 
   function updateLapTimes(event) {
     lapTimes = event.detail.lapTimes;
@@ -59,7 +59,7 @@
       on:newSettings={updateSettings}
       on:closed={closeSettings} />
   {/if}
-  <div class="text-3xl font-medium text-center">
+  <div class="text-3xl font-medium text-center" on:click={openSettings}>
     <TimeDisp
       returnTime
       on:formattedTime={updateFormattedGoal}
