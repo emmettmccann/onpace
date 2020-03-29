@@ -114,7 +114,7 @@
         name="time"
         on:input={validate}
         on:submit|preventDefault={updateRaceSettings} />
-      <div class="pt-8">
+      <div class="flex flex-row justify-between w-full pt-8">
         <button
           type="button"
           class="p-3 m-2 text-xl font-bold text-white bg-red-500 border-none rounded-md shadow-md"
