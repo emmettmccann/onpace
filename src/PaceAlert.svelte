@@ -1,6 +1,7 @@
 <script>
   export let lapTimes = [];
   export let delta = 0;
+  export let timeState;
 </script>
 
 <style>
@@ -18,6 +19,8 @@
     {:else}
       <div id="tooslow" class="text-red-600">Too Slow!</div>
     {/if}
+  {:else if timeState}
+    <div id="onpace" class="text-green-500">Running</div>
   {:else}
     <div id="onpace" class="text-green-500">Ready to Start!</div>
   {/if}

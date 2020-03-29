@@ -7,6 +7,7 @@
 
   export let lapCount = 10;
   export let mustHold = 0.0;
+  export let delta = 0.0;
 
   let currentTime = 0.0;
   let startTime = 0.0;
@@ -18,7 +19,7 @@
   $: mostRecentSplit =
     splitTimes.length > 0 ? splitTimes[splitTimes.length - 1] : 0.0;
 
-  $: splitDelta = mostRecentSplit - mustHold;
+  $: splitDelta = isFinite(mustHold) ? mostRecentSplit - mustHold : delta;
 
   $: split =
     lapTimes.length > 0
@@ -38,6 +39,7 @@
       currentTime = Date.now() - startTime;
     }, 10);
     running = true;
+    sendState();
   }
 
   function stopTimer(event) {
@@ -52,22 +54,26 @@
     startTime = 0.0;
     lapTimes = [];
     splitTimes = [];
-    dispatch("lapTimes", {
-      lapTimes: splitTimes
-    });
+    splitOn = false;
+    sendState();
   }
 
   function addLapTime(event) {
     if (splitOn) return;
     lapTimes = lapTimes.concat(currentTime);
     splitTimes = splitTimes.concat(split);
-    dispatch("lapTimes", {
-      lapTimes: splitTimes
-    });
+    sendState();
     splitOn = true;
     setTimeout(() => {
       splitOn = false;
     }, 2000);
+  }
+
+  function sendState() {
+    dispatch("lapTimes", {
+      lapTimes: splitTimes,
+      timeState: running
+    });
   }
 
   function openSettings(event) {
@@ -105,7 +111,7 @@
 
 <div id="timer">
   <div id="split" class="font-mono text-3xl font-medium">
-    {#if splitOn}
+    {#if splitOn || lapCount == lapTimes.length}
       <!-- show paused split time -->
       <TimeDisp split time={splitDelta} />
     {:else}

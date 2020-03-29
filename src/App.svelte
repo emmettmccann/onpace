@@ -11,9 +11,11 @@
   let delta;
   let goalTimeFormatted = "00:00.00";
   let settings = false;
+  let timeState = false;
 
   function updateLapTimes(event) {
     lapTimes = event.detail.lapTimes;
+    timeState = event.detail.timeState;
   }
 
   function updateMustHold(event) {
@@ -71,13 +73,14 @@
       <Race {lapTimes} {lapCount} {goalTime} on:mustHold={updateMustHold} />
     </div>
     <div class="flex-grow">
-      <PaceAlert {delta} {lapTimes} />
+      <PaceAlert {delta} {lapTimes} {timeState} />
     </div>
     <div>
       <Timer
         on:lapTimes={updateLapTimes}
         on:openSettings={openSettings}
         {mustHold}
+        {delta}
         {lapCount} />
     </div>
   </div>
