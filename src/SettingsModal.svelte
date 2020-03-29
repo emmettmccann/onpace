@@ -117,13 +117,13 @@
       <div class="pt-8">
         <button
           type="button"
-          class="p-3 m-3 text-xl font-bold text-white bg-red-500 border-none rounded-md shadow-md"
+          class="p-3 m-2 text-xl font-bold text-white bg-red-500 border-none rounded-md shadow-md"
           on:click|preventDefault={closeSettings}>
           Cancel
         </button>
         <button
           type="submit"
-          class="p-3 m-3 text-xl font-bold text-white bg-green-500 border-none rounded-md shadow-md"
+          class="p-3 m-2 text-xl font-bold text-white bg-green-500 border-none rounded-md shadow-md"
           on:click|preventDefault={updateRaceSettings}>
           Save Settings
         </button>
