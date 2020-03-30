@@ -59,14 +59,14 @@
   }
 
   function addLapTime(event) {
-    if (splitOn) return;
+    // if (splitOn) return;
     lapTimes = lapTimes.concat(currentTime);
     splitTimes = splitTimes.concat(split);
     sendState();
     splitOn = true;
     setTimeout(() => {
       splitOn = false;
-    }, 2000);
+    }, 10000);
   }
 
   function sendState() {
@@ -110,23 +110,27 @@
 </style>
 
 <div id="timer">
-  <div id="split" class="font-mono text-3xl font-medium">
+  <div
+    id="split"
+    class="flex flex-row justify-center w-10/12 font-mono text-3xl font-medium">
     {#if splitOn || lapCount == lapTimes.length}
       <!-- show paused split time -->
-      <TimeDisp split time={splitDelta} />
+      <div class="flex flex-row justify-between w-full">
+        <div>
+          <TimeDisp time={mostRecentSplit} />
+        </div>
+        <div>
+          <TimeDisp split time={splitDelta} />
+        </div>
+      </div>
     {:else}
       <!-- show running split time -->
       <TimeDisp time={split} />
     {/if}
   </div>
   <div id="time" class="font-mono text-6xl font-light">
-    {#if splitOn}
-      <!-- splitTime -->
-      <TimeDisp time={mostRecentSplit} />
-    {:else}
-      <!-- show running clock -->
-      <TimeDisp time={currentTime} />
-    {/if}
+    <!-- show running clock -->
+    <TimeDisp time={currentTime} />
   </div>
 
   {#if !running & (lapTimes.length == 0)}
